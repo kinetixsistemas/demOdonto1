@@ -1,0 +1,38 @@
+---
+import { siteConfig } from "../config/siteConfig";
+
+const { values } = siteConfig;
+---
+
+<section class="py-24 bg-surface" id="benefits">
+	<div class="max-w-[1280px] mx-auto px-5 md:px-16">
+		<div class="text-center mb-16">
+			<span class="text-xs uppercase tracking-[0.3em] text-brand font-semibold"
+				>¿Por qué elegirnos?</span
+			>
+			<h2 class="font-display text-3xl md:text-4xl font-bold text-teal-900 mt-4">
+				Nuestros Estándares de Calidad
+			</h2>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+			{
+				values.map((item) => (
+					<div
+						class="group bg-white rounded-2xl p-8 ambient-shadow border border-slate-200 flex flex-col items-center text-center gap-5 hover:-translate-y-2 hover:shadow-hover transition-all duration-300"
+					>
+						<span
+							class="w-16 h-16 rounded-2xl bg-brand-soft text-brand flex items-center justify-center shadow-inner transition-all duration-300 group-hover:bg-gradient-to-br group-hover:from-brand group-hover:to-brand-dark group-hover:text-white group-hover:scale-110 group-hover:-rotate-6"
+						>
+							<span class="material-symbols-outlined text-[32px]">{item.icon}</span>
+						</span>
+						<h3 class="font-semibold text-sm text-ink uppercase tracking-wider">
+							{item.title}
+						</h3>
+						<p class="text-sm text-ink-soft leading-relaxed">{item.description}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

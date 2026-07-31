@@ -1,11 +1,46 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Benefits from "../components/Benefits.astro";
+import Treatments from "../components/Treatments.astro";
+import Results from "../components/Results.astro";
+import Location from "../components/Location.astro";
+import Footer from "../components/Footer.astro";
+import ChatWidget from "../components/ChatWidget.astro";
+import CarouselCoverFlow from '../components/CarouselCoverFlow.astro';
+import { gallery } from "../config/services";
+import { siteConfig } from "../config/siteConfig";
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title={`${siteConfig.name} | ${siteConfig.tagline} en Bogotá`}
+	description={siteConfig.description}
+>
+	<Header />
+	<main class="pt-[76px]">
+		<Hero />
+		<section class="py-20 md:py-24 bg-gradient-to-b from-cream via-cream to-cream">
+			<div class="max-w-3xl mx-auto px-5 md:px-16">
+				<div class="text-center mb-10">
+					<span class="text-xs uppercase tracking-[0.3em] text-brand font-semibold"
+						>Galería</span
+					>
+					<h2 class="font-display text-3xl md:text-4xl font-bold text-teal-900 mt-4">
+						Nuestros Tratamientos en Imagen
+					</h2>
+					<p class="text-sm text-ink-soft mt-4">
+						Explora algunos de los procedimientos que ofrecemos.
+					</p>
+				</div>
+				<CarouselCoverFlow images={gallery} isMonochrome={false} />
+			</div>
+		</section>
+		<Benefits />
+		<Treatments />
+		<Results />
+		<Location />
+	</main>
+	<Footer />
+	<ChatWidget />
 </Layout>

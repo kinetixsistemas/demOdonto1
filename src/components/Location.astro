@@ -1,0 +1,133 @@
+---
+import { siteConfig } from "../config/siteConfig";
+import { schedule, availability } from "../config/schedule";
+
+const { contact, address } = siteConfig;
+
+const infoItems = [
+	{
+		icon: "location_on",
+		title: "Dirección",
+		lines: [address.line1, `${address.city}, ${address.country}.`],
+	},
+	{
+		icon: "phone",
+		title: "Teléfono",
+		lines: [contact.phone],
+	},
+	{
+		icon: "mail",
+		title: "Email",
+		lines: [contact.email],
+	},
+];
+---
+
+<section class="py-24 bg-cream" id="location">
+	<div class="max-w-[1280px] mx-auto px-5 md:px-16">
+		<div class="text-center mb-16">
+			<span class="text-xs uppercase tracking-[0.3em] text-brand font-semibold"
+				>Contáctanos</span
+			>
+			<h2 class="font-display text-3xl md:text-4xl font-bold text-teal-900 mt-4">
+				Visítanos
+			</h2>
+			<p class="text-sm text-ink-soft mt-4">
+				Ubicados en el corazón de la zona médica más exclusiva de la
+				ciudad.
+			</p>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
+			<div class="flex flex-col gap-6">
+				{
+					infoItems.map((item) => (
+						<div
+							class="group flex items-start gap-5 bg-surface rounded-2xl p-6 ambient-shadow border border-slate-200 hover:-translate-y-1 hover:shadow-hover transition-all duration-300"
+						>
+							<span
+								class="w-12 h-12 shrink-0 rounded-xl bg-brand-soft text-brand flex items-center justify-center transition-all duration-300 group-hover:bg-gradient-to-br group-hover:from-brand group-hover:to-brand-dark group-hover:text-white"
+							>
+								<span class="material-symbols-outlined">{item.icon}</span>
+							</span>
+							<div>
+								<h4 class="font-semibold text-sm text-ink">{item.title}</h4>
+								{
+									item.lines.map((line) => (
+										<p class="text-sm text-ink-soft leading-relaxed">{line}</p>
+									))
+								}
+							</div>
+						</div>
+					))
+				}
+
+				<div class="bg-surface rounded-2xl p-6 ambient-shadow border border-slate-200">
+					<div class="flex items-center gap-3 mb-4">
+						<span
+							class="w-12 h-12 shrink-0 rounded-xl bg-brand-soft text-brand flex items-center justify-center"
+						>
+							<span class="material-symbols-outlined">schedule</span>
+						</span>
+						<div>
+							<h4 class="font-semibold text-sm text-ink">Horario de Atención</h4>
+							<p class="text-xs text-ink-soft">{availability.bookingNote}</p>
+						</div>
+					</div>
+					<ul class="space-y-2">
+						{
+							schedule.map((day) => (
+								<li
+									class:list={[
+										"flex items-center justify-between text-sm px-3 py-1.5 rounded-lg",
+										day.isOpen
+											? "text-ink-soft"
+											: "text-ink-soft/60",
+									]}
+								>
+									<span
+										class:list={[
+											"font-medium",
+											day.isOpen ? "text-ink" : "text-ink-soft",
+										]}
+									>
+										{day.day}
+									</span>
+									<span
+										class:list={[
+											"inline-flex items-center gap-1.5",
+											day.isOpen ? "text-brand" : "text-ink-soft/70",
+										]}
+									>
+										<span
+											class:list={[
+												"w-1.5 h-1.5 rounded-full",
+												day.isOpen ? "bg-brand" : "bg-ink-soft/40",
+											]}
+										></span>
+										{day.isOpen ? `${day.open} - ${day.close}` : "Cerrado"}
+									</span>
+								</li>
+							))
+						}
+					</ul>
+					<p class="mt-4 text-xs text-ink-soft flex items-center gap-1.5">
+						<span class="material-symbols-outlined !text-[14px]">bolt</span>
+						{availability.responseTime}
+					</p>
+				</div>
+			</div>
+
+			<div
+				class="h-full min-h-96 bg-brand-soft rounded-2xl overflow-hidden ambient-shadow ring-1 ring-ink/5"
+			>
+				<img
+					class="w-full h-full min-h-96 object-cover transition-transform duration-700 hover:scale-105"
+					src="https://lh3.googleusercontent.com/aida-public/AB6AXuBffd_Ho4FPeEUbMajDHD75DUtv0if55Qk6TZ-3cEKlDMmMHc_g5tA09cRwD7wwAEjNGNsu0nFrl1y64GL5vz9M8t9ccdyCD2IdVQkuyuCubhz0Nkuq6VFwtdAj-oME-KvSB4EFixemJ1Q8e45vfSjfegwfrpF5T_4OY91r9HQGBw4B-ZmGhKBn4YBx01OFlqp7GzRq2y5AtnrHTLDLAEza52DBp0XypOeJ7b27chVE0vzMq0Twe7II_A"
+					alt="Mapa de ubicación de Aura Dental en Bogotá"
+					loading="lazy"
+				/>
+			</div>
+		</div>
+	</div>
+</section>

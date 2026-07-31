@@ -1,0 +1,25 @@
+---
+import CardCoverFlow, { type CoverFlowImage } from './CardCoverFlow';
+
+interface Props {
+  className?: string;
+  images?: CoverFlowImage[];
+  isMonochrome?: boolean;
+  autoPlay?: boolean;
+  autoPlayInterval?: number;
+}
+
+const { className = '', images, isMonochrome = false, autoPlay = true, autoPlayInterval = 4000 } = Astro.props;
+---
+
+<div class="w-full flex justify-center items-center">
+  <!-- client:visible asegura la hidratación interactiva de React -->
+  <CardCoverFlow
+    client:visible
+    className={className}
+    images={images}
+    isMonochrome={isMonochrome}
+    autoPlay={autoPlay}
+    autoPlayInterval={autoPlayInterval}
+  />
+</div>

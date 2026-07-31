@@ -1,0 +1,96 @@
+---
+const testimonials = [
+	{
+		patient: "VALENTINA G. - Estética Dental",
+		quote: "Mi sonrisa cambió por completo. El blanqueamiento fue rápido y sin ninguna sensibilidad.",
+		beforeImg:
+			"https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80",
+		afterImg:
+			"https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=800&q=80",
+	},
+	{
+		patient: "CARLOS R. - Implantes",
+		quote: "Recuperé la confianza para sonreír. Los implantes se sienten y lucen completamente naturales.",
+		beforeImg:
+			"https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80",
+		afterImg:
+			"https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+	},
+	{
+		patient: "MARÍA F. - Ortodoncia",
+		quote: "Los alineadores se notaron mucho menos de lo que esperaba y ya veo resultados increíbles.",
+		beforeImg:
+			"https://images.unsplash.com/photo-1445527815219-ecbfec67492e?auto=format&fit=crop&w=800&q=80",
+		afterImg:
+			"https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80",
+	},
+];
+---
+
+<section class="py-24 bg-gradient-to-b from-surface to-white" id="results">
+	<div class="max-w-[1280px] mx-auto px-5 md:px-16">
+		<div class="text-center mb-16">
+			<span class="text-xs uppercase tracking-[0.3em] text-brand font-semibold"
+				>Testimonios</span
+			>
+			<h2 class="font-display text-3xl md:text-4xl font-bold text-teal-900 mt-4">
+				Resultados Reales
+			</h2>
+			<p class="text-sm text-ink-soft mt-4">
+				La experiencia de nuestros pacientes es nuestra mejor garantía.
+			</p>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+			{
+				testimonials.map((item) => (
+					<div
+						class="group bg-white p-6 rounded-2xl ambient-shadow border border-slate-200 flex flex-col hover:-translate-y-1.5 hover:shadow-hover transition-all duration-500"
+					>
+						<div class="h-48 mb-6 rounded-xl overflow-hidden flex relative ring-1 ring-ink/5">
+							<div class="w-1/2 h-full relative overflow-hidden">
+								<img
+									class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+									src={item.beforeImg}
+									alt="Antes del tratamiento"
+									loading="lazy"
+								/>
+								<span
+									class="absolute bottom-2 left-2 text-[10px] text-white bg-ink/60 px-2 py-1 rounded-full backdrop-blur"
+								>
+									Antes
+								</span>
+							</div>
+							<div class="w-1/2 h-full relative overflow-hidden">
+								<img
+									class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+									src={item.afterImg}
+									alt="Después del tratamiento"
+									loading="lazy"
+								/>
+								<span
+									class="absolute bottom-2 right-2 text-[10px] text-white bg-brand/80 px-2 py-1 rounded-full backdrop-blur"
+								>
+									Después
+								</span>
+							</div>
+						</div>
+						<div class="flex-grow">
+							<p class="text-sm text-ink-soft italic mb-4 leading-relaxed">
+								"{item.quote}"
+							</p>
+						</div>
+						<p class="font-semibold text-sm text-ink flex items-center gap-2.5">
+							<span
+								class="w-7 h-7 rounded-full bg-brand-soft text-brand flex items-center justify-center text-[11px] font-bold"
+							>
+								{item.patient.charAt(0)}
+							</span>
+							{item.patient}
+						</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

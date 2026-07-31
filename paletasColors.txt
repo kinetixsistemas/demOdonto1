@@ -1,0 +1,56 @@
+1. Paleta Clásica & Médica
+Enfoque: Transmite máxima autoridad, seriedad corporativa y confianza. Ideal para clínicas generales, endodoncia o cirugía.
+
+background: bg-slate-50 (#F8FAFC)
+
+primary: text-blue-900 (#1E3A8A) — (Azul Marino Profundo)
+
+secondary: text-cyan-600 (#0891B2) — (Azul Cían / Turquesa)
+
+tertiary: bg-emerald-600 (#059669) — (Verde Salud para Botón CTA)
+
+hover: hover:bg-emerald-500 (#10B981) — (Para el botón de agendamiento)
+
+fonts h1: text-blue-950 font-bold (#0F172A)
+
+font h2: text-blue-900 font-semibold (#1E3A8A)
+
+font span: text-slate-600 font-medium (#475569)
+
+2. Paleta Moderna & Fresca
+Enfoque: Sensación de higiene, tecnología, tratamiento indoloro y frescura. Funciona excelente para ortodoncia y odontopediatría.
+
+background: bg-white (#FFFFFF) / contenedores en bg-slate-100 (#F1F5F9)
+
+primary: text-teal-700 (#0F766E) — (Verde Menta / Teal Oscuro)
+
+secondary: text-sky-500 (#0EA5E9) — (Azul Cielo Limpio)
+
+tertiary: bg-orange-500 (#F97316) — (Naranja Coral para Botón CTA)
+
+hover: hover:bg-orange-600 (#EA580C) — (Para el botón de agendamiento)
+
+fonts h1: text-slate-900 font-extrabold (#0F172A)
+
+font h2: text-teal-900 font-bold (#134E4A)
+
+font span: text-slate-500 font-normal (#64748B)
+
+3. Paleta Estética & Lujo
+Enfoque: Dirigida a odontología estética, diseño de sonrisa, carillas de porcelana y blanqueamiento. Proyecta un servicio premium y de alto valor.
+
+background: bg-slate-950 (#020617) o bg-slate-900 (#0F172A)
+
+primary: text-purple-400 (#C084FC) — (Violeta Sofisticado)
+
+secondary: text-slate-200 (#E2E8F0) — (Gris Claro Elegante)
+
+tertiary: bg-amber-400 (#FACC15) — (Dorado / Amarillo Cálido para CTA)
+
+hover: hover:bg-amber-300 (#FDE047) — (Para el botón de agendamiento)
+
+fonts h1: text-white font-extrabold (#FFFFFF)
+
+font h2: text-purple-300 font-semibold (#D8B4FE)
+
+font span: text-slate-400 font-medium (#94A3B8)

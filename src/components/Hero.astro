@@ -1,0 +1,53 @@
+---
+import { siteConfig } from "../config/siteConfig";
+
+const { hero, contact } = siteConfig;
+---
+
+<section class="relative w-full min-h-[88vh] flex items-center justify-center overflow-hidden">
+	<div class="absolute inset-0 z-0">
+		<img
+			class="w-full h-full object-cover scale-105"
+			src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1920&q=80"
+			alt="Consultorio dental moderno de Aura Dental"
+		/>
+		<div class="absolute inset-0 bg-gradient-to-b from-cream/90 via-cream/65 to-cream"></div>
+		<div class="absolute inset-0 bg-gradient-to-tr from-ink/25 via-transparent to-transparent"></div>
+	</div>
+
+	<div
+		class="relative z-10 max-w-[1280px] mx-auto px-5 md:px-16 text-center flex flex-col items-center gap-7 pt-24 pb-20"
+	>
+		<span
+			class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/70 backdrop-blur-md border border-ink/10 text-[11px] uppercase tracking-[0.25em] text-brand font-semibold shadow-card"
+		>
+			<span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+			{hero.badge}
+		</span>
+
+		<h1
+			class="font-display text-4xl md:text-6xl font-extrabold text-ink max-w-4xl leading-[1.1]"
+		>
+			{hero.title}
+			<span class="text-gradient block mt-2">{hero.titleAccent}</span>
+		</h1>
+
+		<p class="text-lg text-ink-soft max-w-2xl leading-relaxed">{hero.subtitle}</p>
+
+		<div class="flex flex-col sm:flex-row gap-4 mt-2">
+			<a
+				href={contact.phoneHref}
+				class="group inline-flex items-center gap-2 bg-cta text-white px-9 py-4 rounded-full font-semibold text-sm tracking-wider shadow-lg shadow-orange-500/30 hover:bg-cta-hover hover:shadow-xl hover:shadow-orange-500/40 hover:-translate-y-1 active:translate-y-0 transition-all duration-300"
+			>
+				{hero.primaryCta}
+				<span class="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+			</a>
+			<a
+				href="#treatments"
+				class="inline-flex items-center justify-center px-9 py-4 rounded-full font-semibold text-sm tracking-wider text-ink bg-white/70 backdrop-blur-md border border-ink/10 hover:bg-white hover:border-brand/40 hover:-translate-y-1 active:translate-y-0 transition-all duration-300"
+			>
+				{hero.secondaryCta}
+			</a>
+		</div>
+	</div>
+</section>
