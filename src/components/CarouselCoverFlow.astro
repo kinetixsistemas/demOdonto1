@@ -1,25 +1,30 @@
 ---
-import CardCoverFlow, { type CoverFlowImage } from './CardCoverFlow';
+import CardCoverFlow from "./CardCoverFlow.astro";
 
-interface Props {
-  className?: string;
-  images?: CoverFlowImage[];
-  isMonochrome?: boolean;
-  autoPlay?: boolean;
-  autoPlayInterval?: number;
+interface CoverFlowImage {
+	src: string;
+	title: string;
+	description?: string;
+	icon?: string;
 }
 
-const { className = '', images, isMonochrome = false, autoPlay = true, autoPlayInterval = 4000 } = Astro.props;
+interface Props {
+	className?: string;
+	images?: CoverFlowImage[];
+	isMonochrome?: boolean;
+	autoPlay?: boolean;
+	autoPlayInterval?: number;
+}
+
+const { className = "", images, isMonochrome = false, autoPlay = true, autoPlayInterval = 4000 } = Astro.props;
 ---
 
 <div class="w-full flex justify-center items-center">
-  <!-- client:idle pospone la hidratación (SSR ya pinta las tarjetas) sin bloquear el render -->
-  <CardCoverFlow
-    client:idle
-    className={className}
-    images={images}
-    isMonochrome={isMonochrome}
-    autoPlay={autoPlay}
-    autoPlayInterval={autoPlayInterval}
-  />
+	<CardCoverFlow
+		className={className}
+		images={images}
+		isMonochrome={isMonochrome}
+		autoPlay={autoPlay}
+		autoPlayInterval={autoPlayInterval}
+	/>
 </div>

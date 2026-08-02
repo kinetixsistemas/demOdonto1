@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { siteConfig } from "../config/siteConfig";
 import { pageTitle, canonicalUrl, buildLocalBusinessSchema } from "../config/seo";
+import interWoff2 from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2";
 
 interface Props {
 	title?: string;
@@ -32,6 +33,9 @@ const schema = buildLocalBusinessSchema();
 		<meta name="generator" content="Astro" />
 		<link rel="canonical" href={canonical} />
 		<link rel="icon" type="image/svg+xml" href={siteConfig.logo} />
+
+		<!-- Preload de la fuente latin (ruta crítica): descarga en paralelo al HTML -->
+		<link rel="preload" href={interWoff2} as="font" type="font/woff2" crossorigin />
 
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
