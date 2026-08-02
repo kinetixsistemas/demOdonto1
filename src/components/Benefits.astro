@@ -29,7 +29,7 @@ const coverFlowImages = await Promise.all(
 
 <section class="py-24 bg-surface" id="benefits">
 	<div class="max-w-[1280px] mx-auto px-5 md:px-16">
-		<div class="text-center mb-14 md:mb-16">
+		<div class="text-center mb-14 md:mb-16" data-reveal>
 			<span class="text-xs uppercase tracking-[0.3em] text-brand font-semibold"
 				>¿Por qué elegirnos?</span
 			>
@@ -38,6 +38,8 @@ const coverFlowImages = await Promise.all(
 			</h2>
 		</div>
 
-		<CarouselCoverFlow images={coverFlowImages} isMonochrome={false} />
+		<div data-reveal data-reveal-delay="120">
+			<CarouselCoverFlow images={coverFlowImages} isMonochrome={false} />
+		</div>
 	</div>
 </section>

@@ -30,7 +30,7 @@ const testimonials = [
 
 <section class="py-24 bg-gradient-to-b from-surface to-white" id="results">
 	<div class="max-w-[1280px] mx-auto px-5 md:px-16">
-		<div class="text-center mb-16">
+		<div class="text-center mb-16" data-reveal>
 			<span class="text-xs uppercase tracking-[0.3em] text-brand font-semibold"
 				>Testimonios</span
 			>
@@ -44,10 +44,12 @@ const testimonials = [
 
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 			{
-				testimonials.map((item) => (
-					<div
-						class="group bg-white p-6 rounded-2xl ambient-shadow border border-slate-200 flex flex-col hover:-translate-y-1.5 hover:shadow-hover transition-all duration-500"
-					>
+			testimonials.map((item, index) => (
+				<div
+					class="group bg-white p-6 rounded-2xl ambient-shadow border border-slate-200 flex flex-col hover:-translate-y-1.5 hover:shadow-hover transition-all duration-500 reveal"
+					data-reveal
+					data-reveal-delay={(index % 3) * 100}
+				>
 						<div class="h-48 mb-6 rounded-xl overflow-hidden flex relative ring-1 ring-ink/5">
 							<div class="w-1/2 h-full relative overflow-hidden">
 								<Image

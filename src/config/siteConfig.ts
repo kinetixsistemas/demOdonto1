@@ -34,13 +34,18 @@ export const siteConfig = {
 		line1: "Av. Principal 123, Edificio Médica, Piso 4",
 		city: "Bogotá",
 		country: "Colombia",
-		geo: { latitude: 4.711, longitude: -74.0721 },
+		geo: { latitude: 6.247197574835251, longitude: -75.56577587020735 },
+		mapsEmbed:
+			"https://www.google.com/maps?q=6.247197574835251,-75.56577587020735&hl=es&z=16&output=embed",
+		mapsDirections:
+			"https://www.google.com/maps/dir/?api=1&destination=6.247197574835251,-75.56577587020735",
 	},
 
 	socials: {
 		instagram: "https://instagram.com/auradental",
 		facebook: "https://facebook.com/auradental",
 		tiktok: "https://tiktok.com/@auradental",
+		whatsapp: "https://wa.me/573015550123",
 	},
 
 	nav: [
@@ -87,10 +92,13 @@ export const siteConfig = {
 		links: [
 			{ label: "Política de privacidad", href: "#" },
 			{ label: "Términos de servicio", href: "#" },
-			{ label: "Trabaja con nosotros", href: "#" },
 			{ label: "Contacto", href: "#contact" },
 		],
 		rights: "© 2026 Aura Dental. Todos los derechos reservados.",
+		developer: {
+			name: "Kinetix Sistemas",
+			url: "https://kinetixsistemas.com",
+		},
 	},
 
 	chatCta: "Consulta con nuestro asistente de IA",

@@ -87,11 +87,67 @@ body {
 	animation-delay: 0.4s;
 }
 
+/* ============ Scroll effects ============ */
+
+.js .reveal {
+	opacity: 0;
+	transform: translateY(32px);
+	transition:
+		opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+	will-change: opacity, transform;
+}
+
+.js .reveal-left {
+	transform: translateX(-48px);
+}
+
+.js .reveal-right {
+	transform: translateX(48px);
+}
+
+.js .reveal-zoom {
+	transform: scale(0.92);
+}
+
+.js .reveal.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+#scroll-progress {
+	transition: transform 0.15s linear;
+}
+
+[data-parallax] {
+	will-change: transform;
+}
+
+[data-header] {
+	transition:
+		box-shadow 0.35s ease,
+		background-color 0.35s ease,
+		padding 0.35s ease;
+}
+
+[data-header].is-scrolled {
+	background-color: rgba(255, 255, 255, 0.92);
+	box-shadow: 0 18px 40px -24px rgba(15, 23, 42, 0.28);
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.hero-zoom,
 	.hero-fade {
 		animation: none !important;
 		opacity: 1 !important;
 		transform: none !important;
+	}
+	.js .reveal {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+	}
+	#scroll-progress {
+		display: none;
 	}
 }

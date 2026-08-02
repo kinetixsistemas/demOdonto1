@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import ScrollFx from "../components/ScrollFx.astro";
 import { siteConfig } from "../config/siteConfig";
 import { pageTitle, canonicalUrl, buildLocalBusinessSchema } from "../config/seo";
 import interWoff2 from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2";
@@ -56,6 +57,7 @@ const schema = buildLocalBusinessSchema();
 		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 	</head>
 	<body class="bg-cream text-ink font-sans antialiased overflow-x-hidden">
+		<ScrollFx />
 		<slot />
 	</body>
 </html>

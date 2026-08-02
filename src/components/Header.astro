@@ -2,75 +2,82 @@
 import { siteConfig } from "../config/siteConfig";
 import Icon from "./Icon.astro";
 
-const { nav, name, tagline, contact } = siteConfig;
+const { nav = [], name = "", tagline = "", contact = { phoneHref: "#" } } = siteConfig;
 ---
 
-<header class="fixed top-0 inset-x-0 z-50">
+<header class="fixed inset-x-0 top-0 z-50">
 	<div
-		class="max-w-[1280px] mx-auto px-5 md:px-16 py-4 flex justify-between items-center bg-cream/85 backdrop-blur-xl shadow-[0_1px_0_rgba(11,28,48,0.08)]"
+		class="mx-auto flex max-w-[1280px] items-center justify-between bg-cream/85 px-5 py-4 backdrop-blur-xl shadow-[0_1px_0_rgba(11,28,48,0.08)] md:px-16"
+		data-header
 	>
-		<a href="/" class="flex items-center gap-3 group" aria-label={name}>
+		<!-- Logo / Branding -->
+		<a href="/" class="group flex items-center gap-3" aria-label={name}>
 			<span
-				class="w-10 h-10 rounded-full bg-gradient-to-br from-brand to-brand-dark text-white flex items-center justify-center font-display font-semibold text-sm shadow-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+				class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand-dark font-display text-sm font-semibold text-white shadow-glow transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
 			>
-				A
+				{name.charAt(0) || "A"}
 			</span>
-			<span class="hidden md:block font-display text-lg font-medium text-ink leading-tight">
+			<span class="hidden font-display text-lg font-medium leading-tight text-ink md:block">
 				{name}
 				<span
-					class="block text-[10px] uppercase tracking-[0.35em] text-brand font-sans font-semibold mt-0.5"
-					>{tagline}</span
+					class="mt-0.5 block font-sans text-[10px] font-semibold uppercase tracking-[0.35em] text-brand"
 				>
+					{tagline}
+				</span>
 			</span>
 		</a>
 
-		<nav class="hidden md:flex items-center gap-8">
+		<!-- Navegación Desktop -->
+		<nav class="hidden items-center gap-8 md:flex" aria-label="Navegación principal">
 			{
 				nav.map((link) => (
 					<a
 						href={link.href}
-						class="relative py-1 text-sm font-medium text-ink-soft hover:text-ink transition-colors duration-300 group"
+						class="group relative py-1 text-sm font-medium text-ink-soft transition-colors duration-300 hover:text-ink"
 					>
 						{link.label}
 						<span
-							class="absolute left-0 bottom-0 h-[2px] w-0 bg-gradient-to-r from-brand to-accent transition-all duration-300 group-hover:w-full rounded-full"
-						></span>
+							class="absolute bottom-0 left-0 h-[2px] w-0 rounded-full bg-gradient-to-r from-brand to-accent transition-all duration-300 group-hover:w-full"
+							aria-hidden="true"
+						/>
 					</a>
 				))
 			}
 		</nav>
 
+		<!-- Botón de Acción y Toggle Móvil -->
 		<div class="flex items-center gap-3">
 			<a
 				href={contact.phoneHref}
-				class="hidden md:inline-block bg-cta text-white px-6 py-3 rounded-full font-semibold text-sm shadow-md shadow-orange-500/30 hover:bg-cta-hover hover:shadow-lg hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300"
+				class="hidden rounded-full bg-cta px-6 py-3 font-semibold text-sm text-white shadow-md shadow-orange-500/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-cta-hover hover:shadow-lg hover:shadow-orange-500/40 active:scale-95 active:translate-y-0 md:inline-block"
 			>
 				Agenda tu cita
 			</a>
 
 			<button
 				id="menu-toggle"
-				class="md:hidden w-11 h-11 flex items-center justify-center rounded-full bg-white border border-ink/10 text-ink hover:bg-brand hover:text-white transition-colors duration-300 cursor-pointer"
-				aria-label="Abrir menú"
+				class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-ink/10 bg-white text-ink transition-colors duration-300 hover:bg-brand hover:text-white md:hidden"
+				aria-label="Abrir menú de navegación"
 				aria-expanded="false"
+				aria-controls="mobile-menu"
 			>
-				<Icon id="icon-open" name="menu" />
-				<Icon id="icon-close" name="close" class="hidden" />
+				<Icon id="icon-open" name="menu" aria-hidden="true" />
+				<Icon id="icon-close" name="close" class="hidden" aria-hidden="true" />
 			</button>
 		</div>
 	</div>
 
-	<!-- Menú móvil -->
+	<!-- Menú Móvil -->
 	<div
 		id="mobile-menu"
-		class="hidden md:hidden mx-4 bg-white rounded-2xl shadow-hover border border-slate-200 p-4 mt-2"
+		class="mx-4 mt-2 hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-hover md:hidden"
 	>
-		<nav class="flex flex-col gap-1">
+		<nav class="flex flex-col gap-1" aria-label="Navegación móvil">
 			{
 				nav.map((link) => (
 					<a
 						href={link.href}
-						class="px-4 py-4 rounded-xl text-sm font-medium text-ink-soft hover:text-white hover:bg-gradient-to-r hover:from-brand hover:to-brand-dark transition-all duration-300"
+						class="rounded-xl px-4 py-4 text-sm font-medium text-ink-soft transition-all duration-300 hover:bg-gradient-to-r hover:from-brand hover:to-brand-dark hover:text-white"
 					>
 						{link.label}
 					</a>
@@ -78,7 +85,7 @@ const { nav, name, tagline, contact } = siteConfig;
 			}
 			<a
 				href={contact.phoneHref}
-				class="mt-2 text-center bg-cta hover:bg-cta-hover text-white px-6 py-3 rounded-full font-semibold text-sm transition-colors duration-300"
+				class="mt-2 rounded-full bg-cta px-6 py-3 text-center text-sm font-semibold text-white transition-colors duration-300 hover:bg-cta-hover"
 			>
 				Agenda tu cita
 			</a>
@@ -87,24 +94,42 @@ const { nav, name, tagline, contact } = siteConfig;
 </header>
 
 <script>
-	const toggle = document.getElementById("menu-toggle");
-	const menu = document.getElementById("mobile-menu");
-	const iconOpen = document.getElementById("icon-open");
-	const iconClose = document.getElementById("icon-close");
+	const setupMobileMenu = () => {
+		const toggle = document.getElementById("menu-toggle");
+		const menu = document.getElementById("mobile-menu");
+		const iconOpen = document.getElementById("icon-open");
+		const iconClose = document.getElementById("icon-close");
 
-	toggle?.addEventListener("click", () => {
-		const isOpen = menu?.classList.toggle("hidden") === false;
-		toggle.setAttribute("aria-expanded", String(isOpen));
-		iconOpen?.classList.toggle("hidden", isOpen);
-		iconClose?.classList.toggle("hidden", !isOpen);
-	});
+		if (!toggle || !menu) return;
 
-	menu?.querySelectorAll("a").forEach((link) => {
-		link.addEventListener("click", () => {
-			menu.classList.add("hidden");
-			toggle.setAttribute("aria-expanded", "false");
-			iconOpen?.classList.remove("hidden");
-			iconClose?.classList.add("hidden");
+		const toggleMenu = (shouldOpen?: boolean) => {
+			const isHidden = menu.classList.contains("hidden");
+			const state = shouldOpen !== undefined ? !shouldOpen : isHidden;
+
+			menu.classList.toggle("hidden", !state);
+			toggle.setAttribute("aria-expanded", String(state));
+			toggle.setAttribute("aria-label", state ? "Cerrar menú de navegación" : "Abrir menú de navegación");
+
+			iconOpen?.classList.toggle("hidden", state);
+			iconClose?.classList.toggle("hidden", !state);
+		};
+
+		toggle.addEventListener("click", () => toggleMenu());
+
+		// Cerrar al hacer clic en cualquier enlace interno
+		menu.querySelectorAll("a").forEach((link) => {
+			link.addEventListener("click", () => toggleMenu(false));
 		});
-	});
+
+		// Cerrar con la tecla Escape
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Escape" && !menu.classList.contains("hidden")) {
+				toggleMenu(false);
+			}
+		});
+	};
+
+	// Ejecutar script asegurando compatibilidad con View Transitions
+	setupMobileMenu();
+	document.addEventListener("astro:page-load", setupMobileMenu);
 </script>

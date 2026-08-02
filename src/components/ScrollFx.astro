@@ -1,0 +1,95 @@
+---
+const { enabled = true } = Astro.props;
+---
+
+<script is:inline>
+	document.documentElement.classList.add("js");
+</script>
+
+<div
+	id="scroll-progress"
+	class="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left scale-x-0 bg-gradient-to-r from-brand via-accent to-brand"
+	aria-hidden="true"
+></div>
+
+{
+	enabled && (
+		<script>
+			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+			const progress = document.getElementById("scroll-progress");
+			const header = document.querySelector("[data-header]");
+			const parallax = document.querySelector("[data-parallax]");
+
+			const updateProgress = () => {
+				if (!progress) return;
+				const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+				const pct = scrollable > 0 ? window.scrollY / scrollable : 0;
+				progress.style.transform = `scaleX(${pct})`;
+			};
+
+			const updateHeader = () => {
+				if (!header) return;
+				header.classList.toggle("is-scrolled", window.scrollY > 24);
+			};
+
+			const updateParallax = () => {
+				if (reduceMotion || !parallax) return;
+				const speed = parseFloat(parallax.dataset.parallax || "0.25");
+				const travel = parallax.parentElement?.getBoundingClientRect().height ?? 0;
+				const offset = Math.min(window.scrollY * speed, travel * 0.16);
+				parallax.style.transform = `translate3d(0, ${offset}px, 0)`;
+			};
+
+			const setupReveals = () => {
+				if (reduceMotion) return;
+				const elements = document.querySelectorAll("[data-reveal]");
+				if (!("IntersectionObserver" in window)) {
+					elements.forEach((el) => el.classList.add("is-visible"));
+					return;
+				}
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (!entry.isIntersecting) return;
+							const delay = entry.target.dataset.revealDelay;
+							if (delay) entry.target.style.transitionDelay = `${delay}ms`;
+							entry.target.classList.add("is-visible");
+							observer.unobserve(entry.target);
+						});
+					},
+					{ threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+				);
+				elements.forEach((el) => observer.observe(el));
+			};
+
+			let ticking = false;
+			const onScroll = () => {
+				if (ticking) return;
+				ticking = true;
+				requestAnimationFrame(() => {
+					updateProgress();
+					updateHeader();
+					updateParallax();
+					ticking = false;
+				});
+			};
+
+			let bound = false;
+			const onPageLoad = () => {
+				if (!bound) {
+					window.addEventListener("scroll", onScroll, { passive: true });
+					window.addEventListener("resize", onScroll, { passive: true });
+					bound = true;
+				}
+				setupReveals();
+				updateProgress();
+				updateHeader();
+				updateParallax();
+			};
+
+			onPageLoad();
+			document.addEventListener("astro:page-load", onPageLoad);
+		</script>
+	)
+}
