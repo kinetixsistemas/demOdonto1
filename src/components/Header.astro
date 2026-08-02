@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from "../config/siteConfig";
+import Icon from "./Icon.astro";
 
 const { nav, name, tagline, contact } = siteConfig;
 ---
@@ -17,7 +18,7 @@ const { nav, name, tagline, contact } = siteConfig;
 			<span class="hidden md:block font-display text-lg font-medium text-ink leading-tight">
 				{name}
 				<span
-					class="block text-[10px] uppercase tracking-[0.35em] text-accent font-sans font-semibold mt-0.5"
+					class="block text-[10px] uppercase tracking-[0.35em] text-brand font-sans font-semibold mt-0.5"
 					>{tagline}</span
 				>
 			</span>
@@ -42,19 +43,19 @@ const { nav, name, tagline, contact } = siteConfig;
 		<div class="flex items-center gap-3">
 			<a
 				href={contact.phoneHref}
-				class="hidden md:inline-block bg-cta text-white px-6 py-2.5 rounded-full font-semibold text-sm shadow-md shadow-orange-500/30 hover:bg-cta-hover hover:shadow-lg hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300"
+				class="hidden md:inline-block bg-cta text-white px-6 py-3 rounded-full font-semibold text-sm shadow-md shadow-orange-500/30 hover:bg-cta-hover hover:shadow-lg hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300"
 			>
 				Agenda tu cita
 			</a>
 
 			<button
 				id="menu-toggle"
-				class="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-white border border-ink/10 text-ink hover:bg-brand hover:text-white transition-colors duration-300 cursor-pointer"
+				class="md:hidden w-11 h-11 flex items-center justify-center rounded-full bg-white border border-ink/10 text-ink hover:bg-brand hover:text-white transition-colors duration-300 cursor-pointer"
 				aria-label="Abrir menú"
 				aria-expanded="false"
 			>
-				<span id="icon-open" class="material-symbols-outlined">menu</span>
-				<span id="icon-close" class="material-symbols-outlined hidden">close</span>
+				<Icon id="icon-open" name="menu" />
+				<Icon id="icon-close" name="close" class="hidden" />
 			</button>
 		</div>
 	</div>
@@ -69,7 +70,7 @@ const { nav, name, tagline, contact } = siteConfig;
 				nav.map((link) => (
 					<a
 						href={link.href}
-						class="px-4 py-3 rounded-xl text-sm font-medium text-ink-soft hover:text-white hover:bg-gradient-to-r hover:from-brand hover:to-brand-dark transition-all duration-300"
+						class="px-4 py-4 rounded-xl text-sm font-medium text-ink-soft hover:text-white hover:bg-gradient-to-r hover:from-brand hover:to-brand-dark transition-all duration-300"
 					>
 						{link.label}
 					</a>

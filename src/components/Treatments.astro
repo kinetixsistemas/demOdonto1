@@ -1,10 +1,12 @@
 ---
+import { Image } from "astro:assets";
 import { services } from "../config/services";
+import Icon from "./Icon.astro";
 ---
 
-<section class="py-24 bg-cream" id="treatments">
+<section class="py-24 bg-gradient-to-b from-cream via-cream to-cream" id="treatments">
 	<div class="max-w-[1280px] mx-auto px-5 md:px-16">
-		<div class="text-center mb-16">
+		<div class="text-center mb-14 md:mb-16">
 			<span class="text-xs uppercase tracking-[0.3em] text-brand font-semibold"
 				>Especialidades</span
 			>
@@ -24,11 +26,15 @@ import { services } from "../config/services";
 						id={item.slug}
 					>
 						<div class="h-64 overflow-hidden relative">
-							<img
-								class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+							<Image
 								src={item.image}
+								class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
 								alt={item.alt}
+								format="webp"
+								widths={[480, 640]}
+								sizes="(max-width: 768px) 100vw, 50vw"
 								loading="lazy"
+								decoding="async"
 							/>
 							<div
 								class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -52,14 +58,14 @@ import { services } from "../config/services";
 								{item.description}
 							</p>
 							<button
-								class="self-start inline-flex items-center gap-2 text-brand font-semibold text-sm group/btn hover:text-brand-dark transition-colors duration-300 cursor-pointer"
+								class="self-start inline-flex items-center gap-2 text-brand font-semibold text-sm group/btn hover:text-brand-dark transition-colors duration-300 cursor-pointer min-h-11 px-2 -mx-2"
 							>
 								VER MÁS
-								<span
-									class="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover/btn:translate-x-1"
-								>
-									arrow_forward
-								</span>
+								<Icon
+									name="arrow_forward"
+									size={16}
+									class="transition-transform duration-300 group-hover/btn:translate-x-1"
+								/>
 							</button>
 						</div>
 					</article>

@@ -1,28 +1,29 @@
 ---
+import { Image } from "astro:assets";
+import ortodonciaImg from "../assets/images/ortodoncia-hero.jpg";
+import esteticaImg from "../assets/images/estetica.jpg";
+import tecnologiaImg from "../assets/images/tecnologia.jpg";
+import implantesImg from "../assets/images/implantes.jpg";
+import antesOrtodonciaImg from "../assets/images/antes-ortodoncia.jpg";
+
 const testimonials = [
 	{
 		patient: "VALENTINA G. - Estética Dental",
 		quote: "Mi sonrisa cambió por completo. El blanqueamiento fue rápido y sin ninguna sensibilidad.",
-		beforeImg:
-			"https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80",
-		afterImg:
-			"https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=800&q=80",
+		beforeImg: ortodonciaImg,
+		afterImg: esteticaImg,
 	},
 	{
 		patient: "CARLOS R. - Implantes",
 		quote: "Recuperé la confianza para sonreír. Los implantes se sienten y lucen completamente naturales.",
-		beforeImg:
-			"https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80",
-		afterImg:
-			"https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+		beforeImg: tecnologiaImg,
+		afterImg: implantesImg,
 	},
 	{
 		patient: "MARÍA F. - Ortodoncia",
 		quote: "Los alineadores se notaron mucho menos de lo que esperaba y ya veo resultados increíbles.",
-		beforeImg:
-			"https://images.unsplash.com/photo-1445527815219-ecbfec67492e?auto=format&fit=crop&w=800&q=80",
-		afterImg:
-			"https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80",
+		beforeImg: antesOrtodonciaImg,
+		afterImg: ortodonciaImg,
 	},
 ];
 ---
@@ -49,11 +50,15 @@ const testimonials = [
 					>
 						<div class="h-48 mb-6 rounded-xl overflow-hidden flex relative ring-1 ring-ink/5">
 							<div class="w-1/2 h-full relative overflow-hidden">
-								<img
-									class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+								<Image
 									src={item.beforeImg}
+									class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
 									alt="Antes del tratamiento"
+									format="webp"
+									widths={[320, 480]}
+									sizes="(max-width: 768px) 50vw, 20vw"
 									loading="lazy"
+									decoding="async"
 								/>
 								<span
 									class="absolute bottom-2 left-2 text-[10px] text-white bg-ink/60 px-2 py-1 rounded-full backdrop-blur"
@@ -62,11 +67,15 @@ const testimonials = [
 								</span>
 							</div>
 							<div class="w-1/2 h-full relative overflow-hidden">
-								<img
-									class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+								<Image
 									src={item.afterImg}
+									class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
 									alt="Después del tratamiento"
+									format="webp"
+									widths={[320, 480]}
+									sizes="(max-width: 768px) 50vw, 20vw"
 									loading="lazy"
+									decoding="async"
 								/>
 								<span
 									class="absolute bottom-2 right-2 text-[10px] text-white bg-brand/80 px-2 py-1 rounded-full backdrop-blur"

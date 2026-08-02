@@ -13,9 +13,9 @@ const { className = '', images, isMonochrome = false, autoPlay = true, autoPlayI
 ---
 
 <div class="w-full flex justify-center items-center">
-  <!-- client:visible asegura la hidratación interactiva de React -->
+  <!-- client:idle pospone la hidratación (SSR ya pinta las tarjetas) sin bloquear el render -->
   <CardCoverFlow
-    client:visible
+    client:idle
     className={className}
     images={images}
     isMonochrome={isMonochrome}

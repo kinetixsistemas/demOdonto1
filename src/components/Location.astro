@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from "../config/siteConfig";
 import { schedule, availability } from "../config/schedule";
+import Icon from "./Icon.astro";
 
 const { contact, address } = siteConfig;
 
@@ -48,10 +49,10 @@ const infoItems = [
 							<span
 								class="w-12 h-12 shrink-0 rounded-xl bg-brand-soft text-brand flex items-center justify-center transition-all duration-300 group-hover:bg-gradient-to-br group-hover:from-brand group-hover:to-brand-dark group-hover:text-white"
 							>
-								<span class="material-symbols-outlined">{item.icon}</span>
+								<Icon name={item.icon} size={24} />
 							</span>
 							<div>
-								<h4 class="font-semibold text-sm text-ink">{item.title}</h4>
+								<h3 class="font-semibold text-sm text-ink">{item.title}</h3>
 								{
 									item.lines.map((line) => (
 										<p class="text-sm text-ink-soft leading-relaxed">{line}</p>
@@ -67,10 +68,10 @@ const infoItems = [
 						<span
 							class="w-12 h-12 shrink-0 rounded-xl bg-brand-soft text-brand flex items-center justify-center"
 						>
-							<span class="material-symbols-outlined">schedule</span>
+							<Icon name="schedule" size={24} />
 						</span>
 						<div>
-							<h4 class="font-semibold text-sm text-ink">Horario de Atención</h4>
+							<h3 class="font-semibold text-sm text-ink">Horario de Atención</h3>
 							<p class="text-xs text-ink-soft">{availability.bookingNote}</p>
 						</div>
 					</div>
@@ -82,7 +83,7 @@ const infoItems = [
 										"flex items-center justify-between text-sm px-3 py-1.5 rounded-lg",
 										day.isOpen
 											? "text-ink-soft"
-											: "text-ink-soft/60",
+											: "text-ink-soft",
 									]}
 								>
 									<span
@@ -96,7 +97,7 @@ const infoItems = [
 									<span
 										class:list={[
 											"inline-flex items-center gap-1.5",
-											day.isOpen ? "text-brand" : "text-ink-soft/70",
+											day.isOpen ? "text-brand" : "text-ink-soft",
 										]}
 									>
 										<span
@@ -112,7 +113,7 @@ const infoItems = [
 						}
 					</ul>
 					<p class="mt-4 text-xs text-ink-soft flex items-center gap-1.5">
-						<span class="material-symbols-outlined !text-[14px]">bolt</span>
+						<Icon name="bolt" size={14} />
 						{availability.responseTime}
 					</p>
 				</div>

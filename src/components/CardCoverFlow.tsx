@@ -1,11 +1,26 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Microscope,
+  ShieldCheck,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
 
 export interface CoverFlowImage {
   src: string;
   title: string;
+  description?: string;
+  icon?: string;
 }
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  biotech: Microscope,
+  spa: Sparkles,
+  health_and_safety: ShieldCheck,
+};
 
 const DEFAULT_ASSETS: CoverFlowImage[] = [
   {
@@ -60,6 +75,22 @@ export default function CardCoverFlow({
     setActiveIndex((prev) => clamp(prev + 1));
   }, [clamp]);
 
+  const touchStartX = useRef<number | null>(null);
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) toNext();
+      else toPrev();
+    }
+  }, [toNext, toPrev]);
+
   const toSlide = useCallback((e: React.MouseEvent, index: number) => {
     e.stopPropagation();
     setActiveIndex(index);
@@ -73,17 +104,22 @@ export default function CardCoverFlow({
     return () => clearInterval(id);
   }, [autoPlay, isPaused, autoPlayInterval, images.length, clamp]);
 
+  const activeItem = images[activeIndex];
+  const ActiveIcon = activeItem?.icon ? ICON_MAP[activeItem.icon] : undefined;
+
   return (
     <div
       className={`relative w-full h-full flex flex-col items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 select-none ${className}`}
-      style={{ perspective: '1200px' }}
+      style={{ perspective: '1200px', touchAction: 'pan-y' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       <div className="pointer-events-none absolute -top-28 left-1/2 -translate-x-1/2 w-[480px] h-[480px] rounded-full bg-brand/20 blur-[130px]" />
       <div className="pointer-events-none absolute -bottom-32 -right-16 w-[360px] h-[360px] rounded-full bg-accent/10 blur-[110px]" />
 
-      <div className="relative w-full flex justify-center items-center h-[170px] md:h-[190px] [transform-style:preserve-3d]">
+      <div className="relative w-full flex justify-center items-center h-[180px] md:h-[250px] [transform-style:preserve-3d]">
         {images.map((item, i) => {
           const isActive = activeIndex === i;
           const offset = i - activeIndex;
@@ -93,10 +129,10 @@ export default function CardCoverFlow({
           return (
             <motion.div
               key={i}
-              className="absolute w-[92px] md:w-[112px] aspect-[3/4] cursor-pointer"
+              className="absolute w-[100px] md:w-[150px] aspect-[3/4] cursor-pointer"
               initial={false}
               animate={{
-                x: offset * 46,
+                x: offset * 66,
                 rotateY: isActive ? 0 : (isPast ? 40 : -40),
                 z: isActive ? 60 : -absOffset * 55,
                 scale: isActive ? 1.12 : Math.max(0.72, 1 - absOffset * 0.09),
@@ -134,41 +170,60 @@ export default function CardCoverFlow({
       </div>
 
       <div className="relative z-20 mt-10 flex flex-col items-center gap-5">
-        <motion.p
-          key={activeIndex}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-medium text-white/90 tracking-wide"
-        >
-          {isMonochrome ? `Card ${activeIndex + 1}` : images[activeIndex]?.title}
-        </motion.p>
+        {isMonochrome ? (
+          <motion.p
+            key={activeIndex}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-medium text-white/90 tracking-wide"
+          >
+            {`Card ${activeIndex + 1}`}
+          </motion.p>
+        ) : (
+          <motion.div
+            key={activeIndex}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col items-center gap-1.5 px-5 py-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center max-w-[300px]"
+          >
+            {ActiveIcon && <ActiveIcon className="w-6 h-6 text-white" strokeWidth={1.75} />}
+            <p className="text-xs font-semibold text-white tracking-wide uppercase">
+              {activeItem?.title}
+            </p>
+            {activeItem?.description && (
+              <p className="text-xs leading-relaxed text-white/70">{activeItem.description}</p>
+            )}
+          </motion.div>
+        )}
 
         <div className="flex items-center gap-2 px-2 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 shadow-lg">
           <button
             onClick={toPrev}
-            className="p-2 rounded-full text-white/70 hover:text-white hover:bg-white/15 active:scale-90 transition-all duration-200 cursor-pointer"
+            className="w-11 h-11 flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/15 active:scale-90 transition-all duration-200 cursor-pointer"
             aria-label="Anterior"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1">
             {images.map((_, i) => (
               <button
                 key={i}
                 onClick={(e) => toSlide(e, i)}
                 aria-label={`Ir a la tarjeta ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${activeIndex === i ? 'w-6 bg-white' : 'w-1.5 bg-white/30 hover:bg-white/60'}`}
-              />
+                className={`h-11 flex items-center justify-center cursor-pointer transition-all duration-300 ${activeIndex === i ? 'w-9' : 'w-6'}`}
+              >
+                <span className={`h-2 rounded-full transition-all duration-300 ${activeIndex === i ? 'w-6 bg-white' : 'w-2 bg-white/30 hover:bg-white/60'}`} />
+              </button>
             ))}
           </div>
 
           <button
             onClick={toNext}
-            className="p-2 rounded-full text-white/70 hover:text-white hover:bg-white/15 active:scale-90 transition-all duration-200 cursor-pointer"
+            className="w-11 h-11 flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/15 active:scale-90 transition-all duration-200 cursor-pointer"
             aria-label="Siguiente"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-5 h-5" />
           </button>
         </div>
       </div>
