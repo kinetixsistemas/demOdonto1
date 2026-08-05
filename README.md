@@ -126,3 +126,6 @@ Los datos estructurados (`MedicalBusiness`) se generan automáticamente a partir
 - [Astro Docs](https://docs.astro.build)
 - [Tailwind CSS](https://tailwindcss.com/docs)
 - [Framer Motion](https://www.framer.com/motion/)
+
+
+

@@ -9,37 +9,51 @@ import ortodonciaImg from "../assets/images/ortodoncia-hero.jpg";
 
 const { values } = siteConfig;
 
+// Mapea todos los iconos presentes en siteConfig.values
 const valueImages: Record<string, ImageMetadata> = {
-	biotech: tecnologiaImg,
-	spa: esteticaImg,
-	health_and_safety: ortodonciaImg,
+    devices: tecnologiaImg,
+    bolt: tecnologiaImg,
+    chat: esteticaImg,
+    star: ortodonciaImg,
+    event_available: ortodonciaImg,
+    verified_user: esteticaImg,
 };
 
 const coverFlowImages = await Promise.all(
-	values.map(async (item) => ({
-		src: (
-			await getImage({ src: valueImages[item.icon], format: "webp", width: 360, quality: 70 })
-		).src,
-		title: item.title,
-		description: item.description,
-		icon: item.icon,
-	}))
+    values.map(async (item) => {
+        // Fallback por seguridad si un icono no se encuentra
+        const imageAsset = valueImages[item.icon] || tecnologiaImg;
+        
+        const optimized = await getImage({
+            src: imageAsset,
+            format: "webp",
+            width: 360,
+            quality: 70,
+        });
+
+        return {
+            src: optimized.src,
+            title: item.title,
+            description: item.description,
+            icon: item.icon,
+        };
+    }),
 );
 ---
 
 <section class="py-24 bg-surface" id="benefits">
-	<div class="max-w-[1280px] mx-auto px-5 md:px-16">
-		<div class="text-center mb-14 md:mb-16" data-reveal>
-			<span class="text-xs uppercase tracking-[0.3em] text-brand font-semibold"
-				>¿Por qué elegirnos?</span
-			>
-			<h2 class="font-display text-3xl md:text-4xl font-bold text-teal-900 mt-4">
-				Nuestros Estándares de Calidad
-			</h2>
-		</div>
+    <div class="max-w-[1280px] mx-auto px-5 md:px-16">
+        <div class="text-center mb-14 md:mb-16" data-reveal>
+            <span class="text-xs uppercase tracking-[0.3em] text-brand font-semibold">
+                Más que una página web, una herramienta para hacer crecer tu clínica.
+            </span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-teal-900 mt-4">
+                Cada detalle de esta demostración está pensado para ofrecer una mejor experiencia a tus pacientes y facilitar que te contacten.
+            </h2>
+        </div>
 
-		<div data-reveal data-reveal-delay="120">
-			<CarouselCoverFlow images={coverFlowImages} isMonochrome={false} />
-		</div>
-	</div>
+        <div data-reveal data-reveal-delay="120">
+            <CarouselCoverFlow images={coverFlowImages} isMonochrome={false} />
+        </div>
+    </div>
 </section>

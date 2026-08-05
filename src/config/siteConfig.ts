@@ -1,4 +1,5 @@
 export const siteConfig = {
+
 	name: "Aura Dental",
 	legalName: "Aura Dental S.A.S.",
 	shortName: "Aura",
@@ -54,35 +55,51 @@ export const siteConfig = {
 		{ href: "#results", label: "Resultados" },
 		{ href: "#location", label: "Ubicación" },
 	],
-
 	hero: {
-		badge: "Odontología de Vanguardia",
-		title: "Tu mejor sonrisa comienza aquí.",
-		titleAccent: "Cuidado dental avanzado y personalizado.",
+		badge: "🚀 Demo para Clínicas Odontológicas",
+		title: "Así podría verse la página web de tu clínica.",
+		titleAccent: "Diseñada para convertir visitantes en pacientes.",
 		subtitle:
-			"Tecnología de punta, especialistas certificados y planes de tratamiento a tu medida. Agenda tu cita hoy.",
-		primaryCta: "Agendar mi cita ahora",
-		secondaryCta: "Ver tratamientos",
+			"Creamos landing pages modernas para odontólogos que transmiten confianza, aumentan las consultas y fortalecen su presencia digital.",
+		primaryCta: "Quiero una página como esta",
+		secondaryCta: "Ver demostración",
 	},
-
 	values: [
 		{
-			icon: "biotech",
-			title: "TECNOLOGÍA DE VANGUARDIA",
+			icon: "devices",
+			title: "DISEÑO RESPONSIVE",
 			description:
-				"Equipos de última generación para tratamientos precisos, seguros y mínimamente invasivos.",
+				"Tu página se adapta perfectamente a móviles, tablets y computadoras para ofrecer una experiencia profesional en cualquier dispositivo.",
 		},
 		{
-			icon: "spa",
-			title: "ATENCIÓN PERSONALIZADA",
+			icon: "bolt",
+			title: "CARGA RÁPIDA",
 			description:
-				"Planes de tratamiento diseñados específicamente para tu salud dental y tus objetivos.",
+				"Un sitio optimizado carga en segundos, mejora la experiencia del usuario y reduce el abandono antes del primer contacto.",
 		},
 		{
-			icon: "health_and_safety",
-			title: "ESPECIALISTAS CERTIFICADOS",
+			icon: "chat",
+			title: "WHATSAPP INTEGRADO",
 			description:
-				"Equipo odontológico altamente cualificado con años de experiencia en todas las especialidades.",
+				"Facilita que los pacientes soliciten información o agenden una cita con un solo clic desde cualquier sección de la página.",
+		},
+		{
+			icon: "star",
+			title: "RESEÑAS QUE GENERAN CONFIANZA",
+			description:
+				"Muestra la experiencia de tus pacientes para transmitir credibilidad y aumentar la confianza desde la primera visita.",
+		},
+		{
+			icon: "event_available",
+			title: "RESERVA DE CITAS",
+			description:
+				"Llamadas a la acción y formularios diseñados para convertir visitantes en nuevas consultas para tu clínica.",
+		},
+		{
+			icon: "verified_user",
+			title: "IMAGEN PROFESIONAL",
+			description:
+				"Una presencia digital moderna y bien estructurada diferencia tu clínica de la competencia y fortalece tu marca.",
 		},
 	],
 
