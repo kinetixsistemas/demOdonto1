@@ -275,143 +275,146 @@ function cardTransform(offset: number) {
 </style>
 
 <script>
-	const root = document.querySelector("[data-coverflow]");
-	if (root) {
-		const count = Number(root.dataset.count || 0);
-		const autoPlay = root.dataset.autoplay === "true";
-		const intervalMs = Number(root.dataset.interval || 4000);
-		const reduced = window.matchMedia(
-			"(prefers-reduced-motion: reduce)",
-		).matches;
+    const root = document.querySelector<HTMLElement>("[data-coverflow]");
+    if (root) {
+        const count = Number(root.dataset.count || 0);
+        const autoPlay = root.dataset.autoplay === "true";
+        const intervalMs = Number(root.dataset.interval || 4000);
+        const reduced = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        ).matches;
 
-		const cards = Array.from(root.querySelectorAll("[data-card]"));
-		const chips = Array.from(root.querySelectorAll("[data-chip]"));
-		const dots = Array.from(root.querySelectorAll("[data-dot]"));
-		const prevBtn = root.querySelector("[data-prev]");
-		const nextBtn = root.querySelector("[data-next]");
+        const cards = Array.from(root.querySelectorAll<HTMLElement>("[data-card]"));
+        const chips = Array.from(root.querySelectorAll<HTMLElement>("[data-chip]"));
+        const dots = Array.from(root.querySelectorAll<HTMLElement>("[data-dot]"));
+        const prevBtn = root.querySelector<HTMLButtonElement>("[data-prev]");
+        const nextBtn = root.querySelector<HTMLButtonElement>("[data-next]");
 
-		const clamp = (i) => Math.max(0, Math.min(count - 1, i));
-		let activeIndex = Math.min(2, count - 1);
-		let timer = null;
-		let hovering = false;
+        const clamp = (i: number) => Math.max(0, Math.min(count - 1, i));
+        let activeIndex = Math.min(2, count - 1);
+        let timer: ReturnType<typeof setInterval> | null = null;
+        let hovering = false;
 
-		function apply(card, i) {
-			const offset = i - activeIndex;
-			const isActive = offset === 0;
-			const isPast = offset < 0;
-			const absOffset = Math.abs(offset);
-			card.style.transform = `translateX(${offset * 66}px) rotateY(${isActive ? 0 : isPast ? 40 : -40}deg) translateZ(${isActive ? 60 : -absOffset * 55}px) scale(${isActive ? 1.12 : Math.max(0.72, 1 - absOffset * 0.09)})`;
-			card.style.opacity =
-				absOffset > 2
-					? "0"
-					: String(Math.max(0.25, 1 - absOffset * 0.3));
-			card.style.zIndex = String(100 - absOffset);
-			card.dataset.active = String(isActive);
-		}
+        function apply(card: HTMLElement, i: number) {
+            const offset = i - activeIndex;
+            const isActive = offset === 0;
+            const isPast = offset < 0;
+            const absOffset = Math.abs(offset);
+            card.style.transform = `translateX(${offset * 66}px) rotateY(${isActive ? 0 : isPast ? 40 : -40}deg) translateZ(${isActive ? 60 : -absOffset * 55}px) scale(${isActive ? 1.12 : Math.max(0.72, 1 - absOffset * 0.09)})`;
+            card.style.opacity =
+                absOffset > 2
+                    ? "0"
+                    : String(Math.max(0.25, 1 - absOffset * 0.3));
+            card.style.zIndex = String(100 - absOffset);
+            card.dataset.active = String(isActive);
+        }
 
-		function updateInfo() {
-			chips.forEach((chip) => {
-				const show = Number(chip.dataset.chipIndex) === activeIndex;
-				chip.classList.toggle("hidden", !show);
-				if (show && !reduced) {
-					chip.getAnimations().forEach((a) => a.cancel());
-					chip.animate(
-						[
-							{ opacity: 0, transform: "translateY(8px)" },
-							{ opacity: 1, transform: "translateY(0)" },
-						],
-						{ duration: 450, easing: "ease-out", fill: "both" },
-					);
-				}
-			});
-			dots.forEach((dot) => {
-				dot.querySelector(".cf-dot").dataset.active = String(
-					Number(dot.dataset.dotIndex) === activeIndex,
-				);
-			});
-		}
+        function updateInfo() {
+            chips.forEach((chip) => {
+                const show = Number(chip.dataset.chipIndex) === activeIndex;
+                chip.classList.toggle("hidden", !show);
+                if (show && !reduced) {
+                    chip.getAnimations().forEach((a) => a.cancel());
+                    chip.animate(
+                        [
+                            { opacity: 0, transform: "translateY(8px)" },
+                            { opacity: 1, transform: "translateY(0)" },
+                        ],
+                        { duration: 450, easing: "ease-out", fill: "both" },
+                    );
+                }
+            });
+            dots.forEach((dot) => {
+                const dotElement = dot.querySelector<HTMLElement>(".cf-dot");
+                if (dotElement) {
+                    dotElement.dataset.active = String(
+                        Number(dot.dataset.dotIndex) === activeIndex,
+                    );
+                }
+            });
+        }
 
-		function render() {
-			cards.forEach(apply);
-			updateInfo();
-		}
+        function render() {
+            cards.forEach(apply);
+            updateInfo();
+        }
 
-		function stop() {
-			if (timer) {
-				clearInterval(timer);
-				timer = null;
-			}
-		}
+        function stop() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
 
-		function start() {
-			stop();
-			if (
-				!autoPlay ||
-				reduced ||
-				hovering ||
-				document.hidden ||
-				count < 2
-			)
-				return;
-			timer = setInterval(() => {
-				activeIndex = clamp(activeIndex + 1);
-				render();
-			}, intervalMs);
-		}
+        function start() {
+            stop();
+            if (
+                !autoPlay ||
+                reduced ||
+                hovering ||
+                document.hidden ||
+                count < 2
+            )
+                return;
+            timer = setInterval(() => {
+                activeIndex = clamp(activeIndex + 1);
+                render();
+            }, intervalMs);
+        }
 
-		function goTo(index) {
-			activeIndex = clamp(index);
-			render();
-		}
+        function goTo(index: number) {
+            activeIndex = clamp(index);
+            render();
+        }
 
-		prevBtn?.addEventListener("click", () => goTo(activeIndex - 1));
-		nextBtn?.addEventListener("click", () => goTo(activeIndex + 1));
+        prevBtn?.addEventListener("click", () => goTo(activeIndex - 1));
+        nextBtn?.addEventListener("click", () => goTo(activeIndex + 1));
 
-		cards.forEach((card, i) => {
-			card.addEventListener("click", () => goTo(i));
-			card.addEventListener("keydown", (e) => {
-				if (e.key === "Enter" || e.key === " ") {
-					e.preventDefault();
-					goTo(i);
-				}
-			});
-		});
+        cards.forEach((card, i) => {
+            card.addEventListener("click", () => goTo(i));
+            card.addEventListener("keydown", (e: KeyboardEvent) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    goTo(i);
+                }
+            });
+        });
 
-		dots.forEach((dot) => {
-			dot.addEventListener("click", () =>
-				goTo(Number(dot.dataset.dotIndex)),
-			);
-		});
+        dots.forEach((dot) => {
+            dot.addEventListener("click", () =>
+                goTo(Number(dot.dataset.dotIndex)),
+            );
+        });
 
-		let touchStartX = null;
-		root.addEventListener("touchstart", (e) => {
-			touchStartX = e.touches[0].clientX;
-			stop();
-		});
-		root.addEventListener("touchend", (e) => {
-			if (touchStartX !== null) {
-				const dx = e.changedTouches[0].clientX - touchStartX;
-				touchStartX = null;
-				if (Math.abs(dx) > 40) goTo(activeIndex + (dx < 0 ? 1 : -1));
-			}
-			if (!hovering) start();
-		});
+        let touchStartX: number | null = null;
+        root.addEventListener("touchstart", (e: TouchEvent) => {
+            touchStartX = e.touches[0].clientX;
+            stop();
+        });
+        root.addEventListener("touchend", (e: TouchEvent) => {
+            if (touchStartX !== null) {
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                touchStartX = null;
+                if (Math.abs(dx) > 40) goTo(activeIndex + (dx < 0 ? 1 : -1));
+            }
+            if (!hovering) start();
+        });
 
-		root.addEventListener("mouseenter", () => {
-			hovering = true;
-			stop();
-		});
-		root.addEventListener("mouseleave", () => {
-			hovering = false;
-			start();
-		});
+        root.addEventListener("mouseenter", () => {
+            hovering = true;
+            stop();
+        });
+        root.addEventListener("mouseleave", () => {
+            hovering = false;
+            start();
+        });
 
-		document.addEventListener("visibilitychange", () => {
-			if (document.hidden) stop();
-			else if (!hovering) start();
-		});
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) stop();
+            else if (!hovering) start();
+        });
 
-		render();
-		start();
-	}
+        render();
+        start();
+    }
 </script>
